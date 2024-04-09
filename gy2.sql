@@ -1,39 +1,39 @@
-
---Melyek azok a gyümölcsök, amelyeket Micimackó nem szeret? (de valaki más igen)
+ 
+--Melyek azok a gyï¿½mï¿½lcsï¿½k, amelyeket Micimackï¿½ nem szeret? (de valaki mï¿½s igen)
 SELECT nev FROM szeret
     MINUS
 SELECT nev FROM szeret 
-        WHERE gyumolcs = 'körte';
+        WHERE gyumolcs = 'kï¿½rte';
         
---Kik szeretik az almát?
+--Kik szeretik az almï¿½t?
 SELECT nev FROM szeret
         WHERE gyumolcs = 'alma';
         
---Kik nem szeretik a körtét? (de valami mást igen)
+--Kik nem szeretik a kï¿½rtï¿½t? (de valami mï¿½st igen)
 SELECT nev FROM szeret
     MINUS
 SELECT nev FROM szeret
-        WHERE gyumolcs = 'körte';
+        WHERE gyumolcs = 'kï¿½rte';
         
---Kik szeretik vagy az almát vagy a körtét?
+--Kik szeretik vagy az almï¿½t vagy a kï¿½rtï¿½t?
 SELECT nev FROM szeret
         WHERE gyumolcs = 'alma'
 UNION
 SELECT nev FROM szeret
-        WHERE gyumolcs = 'körte';
+        WHERE gyumolcs = 'kï¿½rte';
         
---Kik szeretik az almát is és a körtét is?
+--Kik szeretik az almï¿½t is ï¿½s a kï¿½rtï¿½t is?
 SELECT nev FROM szeret
         WHERE gyumolcs = 'alma'
 INTERSECT
 SELECT nev FROM szeret
-        WHERE gyumolcs = 'körte';
+        WHERE gyumolcs = 'kï¿½rte';
         
---Kik azok, akik szeretik az almát, de nem szeretik a körtét?
+--Kik azok, akik szeretik az almï¿½t, de nem szeretik a kï¿½rtï¿½t?
 SELECT nev FROM szeret
         WHERE gyumolcs = 'alma'
 INTERSECT
 (SELECT nev FROM szeret
 MINUS
 SELECT nev FROM szeret
-        WHERE gyumolcs = 'körte');
+        WHERE gyumolcs = 'kï¿½rte');

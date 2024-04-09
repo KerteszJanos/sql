@@ -1,66 +1,66 @@
 SELECT * FROM dolgozo;
-
+ 
 SELECT * FROM osztaly;
 
 SELECT * FROM fiz_kategoria;
 
---Null érték vizsgálatára IS kulcsszó (=, !=, >, < nem értelmes)
+--Null ï¿½rtï¿½k vizsgï¿½latï¿½ra IS kulcsszï¿½ (=, !=, >, < nem ï¿½rtelmes)
 SELECT * FROM dolgozo WHERE null IS null;
 
---Lekérdezzük a fizetés dupláját
+--Lekï¿½rdezzï¿½k a fizetï¿½s duplï¿½jï¿½t
 SELECT dnev, fizetes * 2 FROM dolgozo;
 
---Feladatok: (gyakorlat 2 pótlás)
---Kik azok a dolgozók, akiknek a fizetése nagyobb, mint 2800?
+--Feladatok: (gyakorlat 2 pï¿½tlï¿½s)
+--Kik azok a dolgozï¿½k, akiknek a fizetï¿½se nagyobb, mint 2800?
 SELECT dnev FROM dolgozo WHERE fizetes > 2800;
 
---Kik azok a dolgozók, akik a 10-es vagy a 20-as osztályon dolgoznak?
+--Kik azok a dolgozï¿½k, akik a 10-es vagy a 20-as osztï¿½lyon dolgoznak?
 SELECT dnev FROM dolgozo WHERE oazon = 10
 UNION
 SELECT dnev FROM dolgozo WHERE oazon = 20;
 
---Kik azok, akiknek a jutaléka nagyobb, mint 600?
+--Kik azok, akiknek a jutalï¿½ka nagyobb, mint 600?
 SELECT dnev FROM dolgozo WHERE jutalek > 600;
 
---Kik azok, akiknek a jutaléka nem nagyobb, mint 600?
+--Kik azok, akiknek a jutalï¿½ka nem nagyobb, mint 600?
 SELECT dnev FROM dolgozo WHERE jutalek <= 600;
 
---Kik azok a dolgozók, akiknek a jutaléka ismeretlen (nincs kitöltve, vagyis NULL)?
+--Kik azok a dolgozï¿½k, akiknek a jutalï¿½ka ismeretlen (nincs kitï¿½ltve, vagyis NULL)?
 SELECT dnev FROM dolgozo WHERE jutalek IS null;
 
---Adjuk meg a dolgozók között el?forduló foglalkozások neveit.
+--Adjuk meg a dolgozï¿½k kï¿½zï¿½tt el?fordulï¿½ foglalkozï¿½sok neveit.
 SELECT foglalkozas FROM dolgozo;
---SELECT DISTINCT foglalkozas FROM dolgozo lesz?ri az ismétl?déseket.
+--SELECT DISTINCT foglalkozas FROM dolgozo lesz?ri az ismï¿½tl?dï¿½seket.
 
---Adjuk meg azoknak a nevét és kétszeres fizetését, akik a 10-es osztályon dolgoznak.
+--Adjuk meg azoknak a nevï¿½t ï¿½s kï¿½tszeres fizetï¿½sï¿½t, akik a 10-es osztï¿½lyon dolgoznak.
 SELECT dnev, 2*fizetes FROM dolgozo WHERE oazon = 10;
 
---Kik azok, akiknek nincs f?nöke?
+--Kik azok, akiknek nincs f?nï¿½ke?
 SELECT dnev FROM dolgozo WHERE fonoke IS null;
 
---Kik azok a dolgozók, akiknek a f?nöke KING? (egyel?re leolvasva a képerny?r?l)
+--Kik azok a dolgozï¿½k, akiknek a f?nï¿½ke KING? (egyel?re leolvasva a kï¿½perny?r?l)
 SELECT dnev FROM dolgozo WHERE fonoke = (SELECT dkod FROM dolgozo WHERE dnev = 'KING');
 
---Papírhoz méltóan helyes:
+--Papï¿½rhoz mï¿½ltï¿½an helyes:
 SELECT d1.dnev FROM dolgozo d1, dolgozo d2 WHERE d1.fonoke = d2.dkod AND d2.dnev = 'KING';
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
---3. óra anyaga:
---Descartes szorzat és tábla átnevezés:
+--3. ï¿½ra anyaga:
+--Descartes szorzat ï¿½s tï¿½bla ï¿½tnevezï¿½s:
 SELECT * FROM szeret sz1, szeret sz2;
 SELECT * FROM szeret sz1 CROSS JOIN szeret sz2;
 
---Kik szeretnek legalább kétféle gyümölcsöt?
+--Kik szeretnek legalï¿½bb kï¿½tfï¿½le gyï¿½mï¿½lcsï¿½t?
 SELECT DISTINCT sz1.nev FROM szeret sz1, szeret sz2 WHERE sz1.nev = sz2.nev AND sz1.gyumolcs != sz2.gyumolcs;
 
---Kik szeretnek legalább háromféle gyümölcsöt?
+--Kik szeretnek legalï¿½bb hï¿½romfï¿½le gyï¿½mï¿½lcsï¿½t?
 SELECT DISTINCT sz1.nev FROM szeret sz1, szeret sz2, szeret sz3 WHERE sz1.nev = sz2.nev AND sz2.nev = sz3.nev AND sz1.gyumolcs != sz2.gyumolcs AND sz2.gyumolcs = sz3.gyumolcs AND sz3.gyumolcs != sz1.gyumolcs;
 
---Kik szeretnek legfeljebb kétféle gyümölcsöt?
+--Kik szeretnek legfeljebb kï¿½tfï¿½le gyï¿½mï¿½lcsï¿½t?
 -- minden - 2. feladat
 SELECT nev FROM szeret
 MINUS
 SELECT DISTINCT sz1.nev FROM szeret sz1, szeret sz2, szeret sz3 WHERE sz1.nev = sz2.nev AND sz2.nev = sz3.nev AND sz1.gyumolcs != sz2.gyumolcs AND sz2.gyumolcs = sz3.gyumolcs AND sz3.gyumolcs != sz1.gyumolcs;
 
---Kik szeretnek pontosan kétféle gyümölcsöt?
+--Kik szeretnek pontosan kï¿½tfï¿½le gyï¿½mï¿½lcsï¿½t?
 --1. feladat - 2. feladat

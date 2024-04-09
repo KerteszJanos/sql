@@ -1,15 +1,15 @@
---Kik azok a dolgozók, akiknek a f?nöke KING? (nem leolvasva)
+--Kik azok a dolgozï¿½k, akiknek a f?nï¿½ke KING? (nem leolvasva)
 SELECT d1.dnev FROM dolgozo d1 , dolgozo d2 WHERE d1.fonoke = d2.dkod AND d2.dnev = 'KING';
-
---Adjuk meg azoknak a f?nököknek a nevét, akiknek a foglalkozása nem 'MANAGER' (dnev)
+ 
+--Adjuk meg azoknak a f?nï¿½kï¿½knek a nevï¿½t, akiknek a foglalkozï¿½sa nem 'MANAGER' (dnev)
 SELECT d2.dnev FROM dolgozo d1 , dolgozo d2 WHERE d1.fonoke = d2.dkod 
 MINUS
 SELECT dnev from dolgozo WHERE foglalkozas='MANAGER';
 
---Adjuk meg azokat a dolgozókat, akik többet keresnek a f?nöküknél.
+--Adjuk meg azokat a dolgozï¿½kat, akik tï¿½bbet keresnek a f?nï¿½kï¿½knï¿½l.
 SELECT d1.dnev FROM dolgozo d1, dolgozo d2 WHERE d1.fizetes > d2.fizetes AND d1.fonoke = d2.dkod;
 
---Kik azok a dolgozók, akik f?nökének a f?nöke KING?
+--Kik azok a dolgozï¿½k, akik f?nï¿½kï¿½nek a f?nï¿½ke KING?
 SELECT d1.dnev FROM dolgozo d1, dolgozo d2, dolgozo d3 WHERE d1.fonoke = d2.dkod AND d2.fonoke = d3.dkod AND d3.dnev = 'KING';
 
---Kik szeretnek minden gyümölcsöt
+--Kik szeretnek minden gyï¿½mï¿½lcsï¿½t

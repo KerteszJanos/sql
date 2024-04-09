@@ -1,5 +1,5 @@
 SELECT * FROM dolgozo , osztaly WHERE dolgozo.oazon = osztaly.oazon;
-
+ 
 SELECT * FROM dolgozo NATURAL JOIN osztaly;
 
 
@@ -19,29 +19,29 @@ SELECT * FROM dolgozo FULL OUTER JOIN osztaly ON dolgozo.oazon = osztaly.oazon;
 --------------------------------------------------------------------------------------------------------------------------------
 SELECT oazon, AVG(fizetes) FROM dolgozo GROUP BY oazon;
 --                                         /\
---                                    gamma átírása
+--                                    gamma ï¿½tï¿½rï¿½sa
 
---HIBÁS A GROUP BY-ra
+--HIBï¿½S A GROUP BY-ra
 SELECT * FROM dolgozo GROUP BY oazon;
 --"not a GROUP BY expression"
 
---Aggregáló fv-ek:
+--Aggregï¿½lï¿½ fv-ek:
 SELECT oazon, AVG(fizetes) ATL, MIN(fizetes), MAX(fizetes), COUNT (DISTINCT fizetes), SUM(fizetes) FROM dolgozo GROUP BY oazon;
 --                                                                  /\
---                                                     különböz? elemeket számol meg
+--                                                     kï¿½lï¿½nbï¿½z? elemeket szï¿½mol meg
 
---Csoportképzés inplicit módon
-SELECT COUNT (*) FROM dolgozo; --megszámolja a sorok számát
+--Csoportkï¿½pzï¿½s inplicit mï¿½don
+SELECT COUNT (*) FROM dolgozo; --megszï¿½molja a sorok szï¿½mï¿½t
 
-SELECT oazon, AVG(fizetes) FROM dolgozo GROUP BY oazon; --csoportok szerinti átlag fizu
-SELECT oazon, AVG(fizetes) FROM dolgozo WHERE fizetes > 1500 GROUP BY oazon; --csoportok szerinti átlag fizetés, de csak olyan fizetéseket figyelembe véve ahol az > 1500
+SELECT oazon, AVG(fizetes) FROM dolgozo GROUP BY oazon; --csoportok szerinti ï¿½tlag fizu
+SELECT oazon, AVG(fizetes) FROM dolgozo WHERE fizetes > 1500 GROUP BY oazon; --csoportok szerinti ï¿½tlag fizetï¿½s, de csak olyan fizetï¿½seket figyelembe vï¿½ve ahol az > 1500
 SELECT oazon, AVG(fizetes) FROM dolgozo WHERE fizetes > 1500 GROUP BY oazon HAVING AVG(fizetes) > 2000;
 --                                                                             /\
---                                                                       gyakorlatilag a GROUP BY-ra egy feltétel (a kiértékelés után)
+--                                                                       gyakorlatilag a GROUP BY-ra egy feltï¿½tel (a kiï¿½rtï¿½kelï¿½s utï¿½n)
 
 SELECT oazon, AVG(fizetes) FROM dolgozo WHERE fizetes > 1500 GROUP BY oazon HAVING AVG(fizetes) > 2000 ORDER BY oazon, DESC; --ADC
 --                                                                                                      /\              /\     /\
---                                                                                            oszlopok rendezése     csökken?  növekv?
+--                                                                                            oszlopok rendezï¿½se     csï¿½kken?  nï¿½vekv?
 
 
 
