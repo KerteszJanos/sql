@@ -1,96 +1,92 @@
-
-
---fv. l�trehoz�sa vagy fel�ldefini�l�sa:
+--fv. létrehozása vagy felüldefiniálása:
 CREATE OR REPLACE FUNCTION proba RETURN INT IS
-
---deklaraci�s blokk
-BEGIN --elv�lasztja a deklar�ci�s blokkot a programblokkt�l
+--deklarációs blokk
+BEGIN --elválasztja a deklarációs blokkot a programblokktól
 --programblokk
     RETURN 1;
 END proba;
 
 DROP FUNCTION proba;
 
---fv. lek�rd�zese
+--fv. lekérdezése
 SELECT proba() FROM dual;
 
 --------------------------------------------------------------------------------------------------------------------------------
---Pr�b�ljunk meg ki�ratni valamit.
+--Próbáljunk meg kiíratni valamit.
 
---elj�r�s:
+--eljárás:
 CREATE OR REPLACE PROCEDURE hello IS
 BEGIN
-    dbms_output.put_line('Hello World!'); --"ki�rat�st" megval�sitja a script outputra
+    dbms_output.put_line('Hello World!'); --"kiíratást" megvalósítja a script outputra
 END hello;
 
-SET SERVEROUTPUT ON; --sessiononk�nt egyszr kell, bekapcsolja hogy az al�bbi sor l�that� legyen a script outputon
-CALL hello(); --elj�r�s futtat�s�ra CALL utas�t�s
+SET SERVEROUTPUT ON; --sessiononként egyszer kell, bekapcsolja hogy az alábbi sor látható legyen a script outputon
+CALL hello(); --eljárás futtatására CALL utasítás
 
 -----------------------
 
---param�terez�s
+--paraméterezés
 CREATE OR REPLACE PROCEDURE helloNev(nev VARCHAR2) IS
 BEGIN
-    dbms_output.put_line('Hello ' || nev); -- || oper�tor a string konkatan�ci�
+    dbms_output.put_line('Hello ' || nev); -- || operátor a string konkatenáció
 END helloNev;
 
---SET SERVEROUTPUT ON; --jelenleg nem sz�ks�ges
+--SET SERVEROUTPUT ON; --jelenleg nem szükséges
 CALL helloNev('Peti');
 
 -----------------------
---deklar�ci�s blokk haszn�lata
+--deklarációs blokk használata
 CREATE OR REPLACE PROCEDURE helloNev2(nev VARCHAR2) IS
- uzenet VARCHAR(20) := '!!!'; --�rt�kad�s :=
+ uzenet VARCHAR2(20) := '!!!'; --értékadás :=
 BEGIN
-    dbms_output.put_line('Hello ' || nev || uzenet); -- || oper�tor a string konkatan�ci�
+    dbms_output.put_line('Hello ' || nev || uzenet); -- || operátor a string konkatenáció
 END helloNev2;
 
 CALL helloNev2('Peti');
 
 -----------------------
---lopp haszn�lata
+--ciklus használata
 CREATE OR REPLACE PROCEDURE helloNev2Loop(nev VARCHAR2) IS
- uzenet VARCHAR(20) := '!!!'; --�rt�kad�s :=
+ uzenet VARCHAR2(20) := '!!!'; --értékadás :=
 BEGIN
     FOR i IN 1..10 LOOP --for syntax 
-  --FOR i IN REVERSE 1..10 LOOP... ford�tva megy a loop  
-        dbms_output.put_line(i || ' - ' || 'Hello ' || nev || uzenet); -- || oper�tor a string konkatan�ci�
+  --FOR i IN REVERSE 1..10 LOOP... fordítva megy a loop  
+        dbms_output.put_line(i || ' - ' || 'Hello ' || nev || uzenet); -- || operátor a string konkatenáció
     END LOOP;
 END helloNev2Loop;
 
 CALL helloNev2Loop('Peti');
 
 -----------------------
---if haszn�lata
+--if használata
 CREATE OR REPLACE PROCEDURE helloNev2LoopIf(nev VARCHAR2) IS
- uzenet VARCHAR(20) := '!!!'; --�rt�kad�s :=
+ uzenet VARCHAR2(20) := '!!!'; --értékadás :=
 BEGIN
     FOR i IN 1..10 LOOP --for syntax 
         IF MOD(i,3) = 0 THEN
-            dbms_output.put_line(i || ' - ' || 'Hello ' || nev || uzenet); -- || oper�tor a string konkatan�ci�
+            dbms_output.put_line(i || ' - ' || 'Hello ' || nev || uzenet); -- || operátor a string konkatenáció
         ELSIF MOD(i,3) = 1 THEN
-            dbms_output.put_line(i || ' + ' || 'Hello ' || nev || uzenet); -- || oper�tor a string konkatan�ci�
+            dbms_output.put_line(i || ' + ' || 'Hello ' || nev || uzenet); -- || operátor a string konkatenáció
         ELSE
-            dbms_output.put_line(i || ' * ' || 'Hello ' || nev || uzenet); -- || oper�tor a string konkatan�ci�
+            dbms_output.put_line(i || ' * ' || 'Hello ' || nev || uzenet); -- || operátor a string konkatenáció
         END IF;
     END LOOP;
 END helloNev2LoopIf;
 
 CALL helloNev2LoopIf('Peti');
 
---default param�ter �tv�tele immutablev� teszi azt
---rekurzi� t�mogatott
+--default paraméter átvétele immutablevé teszi azt
+--rekurzió támogatott
 
---bool �rt�kek:
---dekral�lni szeretn�k boolt az ok�s
+--bool értékek:
+--deklarálni szeretném boolt az okés
 --ha boolt kell returnolni akkor 0(false) 1(true)
 
 --------------------------------------------------------------------------------------------------------------------------------
---�rai feladatok:
+--órai feladatok:
 
---Pr�m-e F�ggv�ny
+--Prím-e Függvény
 CREATE OR REPLACE FUNCTION prim(szam INT) RETURN INT IS
-
 BEGIN
     IF szam <= 2 THEN
         RETURN 1;
@@ -105,10 +101,8 @@ END prim;
 
 SELECT prim(2),prim(3),prim(5),prim(6),prim(7) from dual;
 
-
 --Fibonacci sorozat
 CREATE OR REPLACE FUNCTION fib(n INT) RETURN INT IS
-
 BEGIN
     IF n = 1 THEN
         RETURN 1;
@@ -121,12 +115,11 @@ END fib;
 
 SELECT fib(10) FROM dual;
 
---Legnagyobb k�z�s oszt�
+--Legnagyobb közös osztó
 --:(
 
---Faktori�lis
+--Faktoriális
 CREATE OR REPLACE FUNCTION faktor(n INT) RETURN INT IS
-
 BEGIN
     IF n = 0 THEN
         RETURN 1;
